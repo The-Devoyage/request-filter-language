@@ -1,6 +1,4 @@
-import { gql } from "apollo-server-core";
-
-export const StringFieldFilter = gql`
+export const StringFieldFilter = `
   enum StringFilterByEnum {
     REGEX
     MATCH
@@ -9,14 +7,14 @@ export const StringFieldFilter = gql`
 
   input StringFieldFilter {
     string: String!
-    filterBy: StringFilterByEnum!
+    filterBy: StringFilterByEnum
     operator: OperatorFieldConfigEnum
     groups: [String!]
   }
 
   input StringArrayFieldFilter {
     string: [String!]!
-    filterBy: StringFilterByEnum!
+    filterBy: StringFilterByEnum
     arrayOptions: ArrayFilterByEnum!
     operator: OperatorFieldConfigEnum
     groups: [String!]

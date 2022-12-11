@@ -1,9 +1,8 @@
-import { gql } from "apollo-server-core";
-
-export const Pagination = gql`
+export const Pagination = `
   input Pagination {
     limit: Int
     reverse: Boolean
-    createdAt: DateTime
+    date_cursor: DateTime
+    date_key: String
   }
 `;

@@ -1,12 +1,15 @@
-import { GroupNameSchema, OperatorOptionsSchema } from "../../";
+import {
+  GroupNameSchema,
+  OperatorOptionsSchema,
+} from "../../../field-filters/common";
 import { z } from "zod";
 import { DateFilterByOptionsSchema } from "..";
 
 export const DateFieldFilterSchema = z.object({
   date: z.date(),
-  filterBy: DateFilterByOptionsSchema,
-  operator: OperatorOptionsSchema.optional(),
-  groups: z.array(GroupNameSchema).optional(),
+  filterBy: z.optional(DateFilterByOptionsSchema),
+  operator: z.optional(OperatorOptionsSchema),
+  groups: z.optional(z.array(GroupNameSchema)),
 });
 
 export type DateFieldFilter = z.infer<typeof DateFieldFilterSchema>;

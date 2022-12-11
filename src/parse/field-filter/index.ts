@@ -10,12 +10,10 @@ export const parseFieldFilter = (
     }
   | undefined => {
   const deepFilterSearch = (object: unknown): FieldFilter | undefined => {
-    // If Valid Field Filter, Return, no need to update location.
     if (FieldFiltersSchema.safeParse(object).success) {
       return object as FieldFilter;
     }
 
-    // If not FieldFilter, keep looking deeper, and update location.
     for (const k in object as Record<string, unknown>) {
       location.push(k);
       const obj = (object as Record<string, unknown>)[k];

@@ -1,16 +1,16 @@
-import { z } from "zod";
-import { StringFilterByOptionsSchema } from "..";
 import {
-  ArrayFilterByOptionsSchema,
   GroupNameSchema,
   OperatorOptionsSchema,
-} from "../../";
+  ArrayFilterByOptionsSchema,
+} from "../../../field-filters/common";
+import { z } from "zod";
+import { StringFilterByOptionsSchema } from "..";
 
 export const StringArrayFieldFilterSchema = z.object({
   strings: z.array(z.string()),
-  filterBy: StringFilterByOptionsSchema,
-  operator: OperatorOptionsSchema.optional(),
-  groups: z.array(GroupNameSchema).optional(),
+  filterBy: z.optional(StringFilterByOptionsSchema),
+  operator: z.optional(OperatorOptionsSchema),
+  groups: z.optional(z.array(GroupNameSchema)),
   arrayOptions: ArrayFilterByOptionsSchema,
 });
 

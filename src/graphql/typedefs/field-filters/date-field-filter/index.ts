@@ -1,6 +1,4 @@
-import { gql } from "apollo-server-core";
-
-export const DateFieldFilter = gql`
+export const DateFieldFilter = `
   enum DateFilterByEnum {
     EQ
     GT
@@ -12,7 +10,7 @@ export const DateFieldFilter = gql`
 
   input DateFieldFilter {
     date: DateTime!
-    filterBy: DateFilterByEnum!
+    filterBy: DateFilterByEnum
     operator: OperatorFieldConfigEnum
     groups: [String!]
   }

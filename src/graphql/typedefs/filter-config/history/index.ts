@@ -1,6 +1,4 @@
-import { gql } from "apollo-server-core";
-
-export const History = gql`
+export const History = `
   enum HistoryFilterIntervalEnum {
     YEAR
     DAY_OF_YEAR
@@ -11,10 +9,10 @@ export const History = gql`
     HOUR
     MINUTES
     SECONDS
-    MILLISECONDS
   }
 
   input HistoryFilterInput {
     interval: [HistoryFilterIntervalEnum!]!
+    interval_key: String!
   }
 `;

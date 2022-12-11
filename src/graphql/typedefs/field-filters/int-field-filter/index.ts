@@ -1,6 +1,4 @@
-import { gql } from "apollo-server-core";
-
-export const IntFieldFilter = gql`
+export const IntFieldFilter = `
   enum IntFilterByEnum {
     EQ
     GT
@@ -12,7 +10,7 @@ export const IntFieldFilter = gql`
 
   input IntFieldFilter {
     int: Int!
-    filterBy: IntFilterByEnum!
+    filterBy: IntFilterByEnum
     operator: OperatorFieldConfigEnum
     groups: [String!]
   }

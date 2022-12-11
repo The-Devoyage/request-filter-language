@@ -1,6 +1,4 @@
-import { gql } from "apollo-server-core";
-
-export const BooleanFieldFilter = gql`
+export const BooleanFieldFilter = `
   enum BooleanFilterByEnum {
     EQ
     NE
@@ -8,7 +6,7 @@ export const BooleanFieldFilter = gql`
 
   input BooleanFieldFilter {
     bool: Boolean!
-    filterBy: BooleanFilterByEnum!
+    filterBy: BooleanFilterByEnum
     operator: OperatorFieldConfigEnum
     groups: [String!]
   }

@@ -8,13 +8,13 @@ export const HistoryFilterIntervalEnumSchema = z.enum([
   "WEEK",
   "DAY_OF_WEEK",
   "HOUR",
-  "MINUTES",
-  "SECONDS",
-  "MILLISECONDS",
+  "MINUTE",
+  "SECOND",
 ]);
 
 export const HistoryFilterInputSchema = z.object({
   interval: z.array(HistoryFilterIntervalEnumSchema),
+  interval_key: z.string(),
 });
 
 export type HistoryFilterIntervalEnum = z.infer<

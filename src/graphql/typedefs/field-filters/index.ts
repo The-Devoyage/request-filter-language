@@ -1,10 +1,9 @@
-import { gql } from "apollo-server-core";
 import { StringFieldFilter } from "./string-field-filter";
 import { DateFieldFilter } from "./date-field-filter";
 import { IntFieldFilter } from "./int-field-filter";
 import { BooleanFieldFilter } from "./boolean-field-filter";
 
-const Common = gql`
+const Common = `
   enum OperatorFieldConfigEnum {
     AND
     OR
@@ -15,10 +14,11 @@ const Common = gql`
     NIN
   }
 `;
-export const FieldFilters = {
+
+export const FieldFilters = [
   Common,
   StringFieldFilter,
   IntFieldFilter,
   BooleanFieldFilter,
   DateFieldFilter,
-};
+];
