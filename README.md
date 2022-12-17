@@ -1,6 +1,6 @@
 # @the-devoyage/request-filter-language
 
-A validation, creation, and type library to structure the shape of network requests when dealing with filtering, searching, and pagination.
+A library to structure the shape of network requests when dealing with filtering, searching, and pagination.
 
 ## RESTFUL, Typescript, and GraphQL Support
 
@@ -8,14 +8,14 @@ A validation, creation, and type library to structure the shape of network reque
 - Zod Schemas for Validation
 - GraphQL Type Definitions and Scalars
 
-## What is Request Filter Language?
+## Features
 
 ### Standardized Requests
 
 Standardize how the client application can communicate with an API. Each typed property allows you to specify how you want the API to filter the result.
 
 ```js
-req.body = {
+{
   name: StringFieldFilter;
   age: IntFieldFilter;
   status: BooleanFieldFilter;
@@ -36,17 +36,24 @@ req.body = {
     filterBy: "REGEX",
     groups: ["customName.and"],
     operator: "AND"
-  },
+  } as StringFieldfilter,
   age: {
     int: 21,
     filterBy: "GT"
     operator: "OR"
-  },
+  } as IntFieldFilter,
   status: {
     bool: true,
     filterBy: "EQ",
     groups: ["customName.and"]
     operator: "OR"
+  } as BooleanFieldFilter,
+  birthday: {
+    date: new Date("01/07/2017")
+    filterBy: "LT",
+  }
+  friends: {
+    strings: ["Bongo", "Jedi", "Oakley", "Yellow"],
   }
 }
 ```
@@ -69,23 +76,41 @@ The `FilterConfig` object allows the client to adjust global options for the req
 
 ### Validation
 
-All Field Filters can be validated using provided Zod Schemas.
+All Field Filters and Objects can be validated using provided Zod Schemas.
 
 ```js
 import { StringFieldFilterSchema } from '@the-devoyage/request-filter-language';
 
 const isValid = StringFieldFilterSchema.safeParse(myStringFieldFilter).success;
+const IntFieldFilterSchema = IntFieldFilterSchema.parse(myIntFieldFilter); 
 ```
 
 ### Parse Filters
 
-Parse Field Filters From Any Object. If no filters are found then the library throws an error.
+Parse Field Filters From Any Object.
 
 ```js
 import { parseFieldFilters } from '@the-devoyage/request-filter-language';
 
-const fieldFilters = parseFieldFilters(myObject);
+const myObject = {
+    name: stringFieldFilter,
+    age: intFieldFilter,
+    address: {
+        lineOne: stringFieldFilter
+      }
+    customProp: notAFieldFilter // <-- CUSTOM PROPERTIES
+    customPropz: [notAFieldFilter] // <-- CUSTOM PROPERTIES
+  }
 
+const fieldFilters = parseFieldFilters(myObject);
+ 
+{
+  name: stringFieldFilter,
+  age: intFieldFilter,
+  address: {
+      lineOne: stringFieldFilter
+  }
+}
 ```
 
 ### Create Field Filters
@@ -99,6 +124,7 @@ const req.body = {
     name: fieldFilter.string("nick"),
     email: fieldFilter.string({string: "nick", filterBy: "REGEX"})
     age: fieldFilter.int({int: 21, filterBy: "GT"})
+    date: fieldFilter.date(new Date())
   }
 ```
 
@@ -110,36 +136,47 @@ const req.body = {
 npm i @the-devoyage/request-filter-language
 ```
 
-### Validate Incoming Requests
-
-```js
-import { parseFieldFilters } from '@the-devoyage/request-filter-language'
-
-const route = (req, res) => {
-  const fieldFilters = parseFieldFilters(req.body);
-
-  // Use Mongo Filter Generator to convert the filters to Mongoose Filters.
-  // Use SQL Query Generator to convert the filters to a Sequelize Query.
-  // Build your own library to use the filters.
-}
-```
-
 ## API
+
+### Create with Function
+
+```
+import { fieldFilter } from '@the-devoyage/request-filter-language'
+
+const stringFieldFilter = fieldFilter.string({...})
+const intFieldFilter = fieldFilter.int({...})
+const booleanFieldFilter = fieldFilter.bool({...})
+const dateFieldFilter = fieldFilter.date({...})
+const stringArrayFieldFilter = stringFilter.strings({...})
+```
 
 ### Field Filters
 
 - String Field Filter
-
-```ts
-const stringFieldFilter = fieldFilter.string({});
-```
-
 - String Array Field Filter
 - Int Field Filter
 - Boolean Field Filter
 - Date Field Filter
 
-**Importing Types**
+| Field Filters          | Query Prop     | filterBy                             | operator    | groups |
+|------------------------|----------------|--------------------------------------|-------------|--------|
+| StringFieldFilter      | "string"       | "MATCH", "REGEX", "OBJECTID"         | "OR", "AND" | yes    |
+| IntFieldFilter         | "int"          | "EQ", "NE", "GT", "LT", "GTE", "LTE" | "OR", "AND" | yes    |
+| BooleanFieldFilter     | "bool"         | "EQ", "NE"                           | "OR", "AND" | yes    |
+| DateFieldFilter        | "date"         | "EQ", "NE", "GT", "LT", "GTE", "LTE" | "OR", "AND" | yes    |
+| StringArrayFieldFilter | "strings"      | "MATCH", "REGEX", "OBJECTID"         | "OR", "AND" | yes    |
+
+Example: 
+```
+{
+  string: "Lila",
+  filterBy: "MATCH",
+  operator: "OR",
+  groups: ["name.and"]
+}
+```
+
+**Typescript**
 
 ```js
 import { 
@@ -151,9 +188,10 @@ import {
 } from "@the-devoyage/request-filter-languages";
 
 const firstNameFilter: StringFieldFilter = {...};
+const ageFilter: IntFieldFilter = {...}
 ```
 
-**Validations**
+**Zod Validations**
 
 ```js
 import { 
@@ -168,20 +206,17 @@ const isValid = IntFieldFilterSchema.safeParse({...}).success;
 const fieldFilter = DateFieldFilterSchema.parse({...});
 ```
 
-Check out Zod for more information on how to use the schema validations.
+Check out the Zod documentation for more information on how to use the schema validations.
 
 ### Filter Config
 
 Use the filter configuration object to specify global data such as pagination or historical shaping.
 
 ```js
-const req.body = {
-    ...fieldFilters,
-    filterConfig: {
-        pagination: {...},
-        history: {...}
-      }
-  }
+import { filterConfig } from '@the-devoyage/request-filter-language'
+
+const paginationFilters = filterConfig.pagination({...})
+const historyFilters = filterConfig.history({...})
 ```
 
 **Pagination**
