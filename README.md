@@ -3,16 +3,17 @@
 A library to help standardize the shape of network requests.
 
 Poorly Shaped Request:
+
+- Keys name are not standardized
 - It's hard to read.
-- It's hard to predict the results.
-- It's hard to remember how to write.
-- It's not scalable.
+- Can't really predict the results.
+- Try remembering how to write this.
 
 ```
 req.body = {
   exact: true,
   isListElement: true,
-  userFirstNameQuery: "Wednesd",
+  userFirstNameQuery: "Wednesday",
   lastNameUserQuery: "adams"
   userIsActive: true,
   userType: "admin",
@@ -27,9 +28,11 @@ req.body = {
 ```
 
 A Standardized Request:
+
+- Keys are the same name as the resource
 - Predictable Shapes
-- Predictable Keys
-- Predictable Results 
+- Standardized Options
+- Results are predictable!
 
 ```
 req.body = {
@@ -141,10 +144,10 @@ The `FilterConfig` object allows the client to adjust global options for the req
 All Field Filters and Objects can be validated using provided Zod Schemas.
 
 ```js
-import { StringFieldFilterSchema } from '@the-devoyage/request-filter-language';
+import { StringFieldFilterSchema } from "@the-devoyage/request-filter-language";
 
 const isValid = StringFieldFilterSchema.safeParse(myStringFieldFilter).success;
-const IntFieldFilterSchema = IntFieldFilterSchema.parse(myIntFieldFilter); 
+const IntFieldFilterSchema = IntFieldFilterSchema.parse(myIntFieldFilter);
 ```
 
 ### Parse Filters
@@ -165,7 +168,7 @@ const myObject = {
   }
 
 const fieldFilters = parseFieldFilters(myObject);
- 
+
 {
   name: stringFieldFilter,
   age: intFieldFilter,
@@ -194,6 +197,20 @@ const req.body = {
 
 ### Install
 
+1. Login to the GitHub Registry with your GitHub account.
+
+```
+npm login --registry=https://npm.pkg.github.com
+```
+
+2. In the root of the target project, add the following to the `.npmrc` file to tell this package where to be downloaded from. Create the file if it does not exist.
+
+```
+@the-devoyage:registry=https://npm.pkg.github.com
+```
+
+3. Install with node package manager.
+
 ```bash
 npm i @the-devoyage/request-filter-language
 ```
@@ -220,15 +237,16 @@ const stringArrayFieldFilter = stringFilter.strings({...})
 - Boolean Field Filter
 - Date Field Filter
 
-| Field Filters          | Query Prop     | filterBy                             | operator    | groups |
-|------------------------|----------------|--------------------------------------|-------------|--------|
-| StringFieldFilter      | "string"       | "MATCH", "REGEX", "OBJECTID"         | "OR", "AND" | yes    |
-| IntFieldFilter         | "int"          | "EQ", "NE", "GT", "LT", "GTE", "LTE" | "OR", "AND" | yes    |
-| BooleanFieldFilter     | "bool"         | "EQ", "NE"                           | "OR", "AND" | yes    |
-| DateFieldFilter        | "date"         | "EQ", "NE", "GT", "LT", "GTE", "LTE" | "OR", "AND" | yes    |
-| StringArrayFieldFilter | "strings"      | "MATCH", "REGEX", "OBJECTID"         | "OR", "AND" | yes    |
+| Field Filters          | Query Prop | filterBy                             | operator    | groups |
+| ---------------------- | ---------- | ------------------------------------ | ----------- | ------ |
+| StringFieldFilter      | "string"   | "MATCH", "REGEX", "OBJECTID"         | "OR", "AND" | yes    |
+| IntFieldFilter         | "int"      | "EQ", "NE", "GT", "LT", "GTE", "LTE" | "OR", "AND" | yes    |
+| BooleanFieldFilter     | "bool"     | "EQ", "NE"                           | "OR", "AND" | yes    |
+| DateFieldFilter        | "date"     | "EQ", "NE", "GT", "LT", "GTE", "LTE" | "OR", "AND" | yes    |
+| StringArrayFieldFilter | "strings"  | "MATCH", "REGEX", "OBJECTID"         | "OR", "AND" | yes    |
 
-Example: 
+Example:
+
 ```
 {
   string: "Lila",
@@ -241,12 +259,12 @@ Example:
 **Typescript**
 
 ```js
-import { 
-  StringFieldFilter, 
-  StringArrayFieldFilter, 
-  IntFieldFilter, 
-  BooleanFieldFilter, 
-  DateFieldFilter 
+import {
+  StringFieldFilter,
+  StringArrayFieldFilter,
+  IntFieldFilter,
+  BooleanFieldFilter,
+  DateFieldFilter
 } from "@the-devoyage/request-filter-languages";
 
 const firstNameFilter: StringFieldFilter = {...};
@@ -256,12 +274,12 @@ const ageFilter: IntFieldFilter = {...}
 **Zod Validations**
 
 ```js
-import { 
-  StringFieldFilterSchema, 
-  StringArrayFieldFilterSchema, 
-  IntFieldFilterSchema. 
-  BooleanFieldFilterSchema, 
-  DateFieldFilterSchema 
+import {
+  StringFieldFilterSchema,
+  StringArrayFieldFilterSchema,
+  IntFieldFilterSchema.
+  BooleanFieldFilterSchema,
+  DateFieldFilterSchema
 } from "@the-devoyage/request-filter-languages";
 
 const isValid = IntFieldFilterSchema.safeParse({...}).success;
@@ -270,7 +288,7 @@ const fieldFilter = DateFieldFilterSchema.parse({...});
 
 Check out the Zod documentation for more information on how to use the schema validations.
 
-### Filter Config
+### Filter Configuration
 
 Use the filter configuration object to specify global data such as pagination or historical shaping.
 
@@ -281,6 +299,14 @@ const paginationFilters = filterConfig.pagination({...})
 const historyFilters = filterConfig.history({...})
 ```
 
+TypeScript
+
+```js
+import { FilterConfig } from '@the-devoyage/request-filter-language'
+
+const filterConfig: FilterConfig = {...}
+```
+
 **Pagination**
 
 Specify options to control the amount and order of results.
@@ -289,6 +315,51 @@ Specify options to control the amount and order of results.
 const pagination = {
   limit: 16,
   reverse: true,
-  createdAt: new Date()
-  }
+  dateCursor: new Date()
+  dateKey: "createdAt"
+}
+```
+
+**History**
+
+In the case that you want to organize data in historical intervals, the history object allows for customization of such options.
+
+```js
+// Find all and group by year and month. 
+const history = {
+  interval: ["YEAR", "MONTH"], // Accepts "SECOND" | "MINUTE" | "HOUR" | "DAY_OF_WEEK" | "WEEK" | "DAY_OF_MONTH" | "MONTH" | "DAY_OF_YEAR" | "YEAR"
+  interval_key: "createdAt" // A string to group by.
+}
+```
+
+### Return Types
+
+This library also provides typings, validators, and create functions for suggested return types. 
+
+```js
+// Typescript
+import { Stats, HistoricStats, HistoricStatsId } from '@the-devoyage/request-filter-language'
+
+// Validators
+import { StatsSchema, HistoricStatsSchema, HistoricStatsIdSchema } from "@the-devoyage/request-filter-language"
+
+// Create
+import { stats, historicStats, historicStatsId } from '@the-devoyage/request-filter-language'
+```
+
+### GraphQL Support
+
+All typings are also exported as GraphQL Types.
+
+```
+import { GraphQL } from '@the-devoyage/request-filter-language'
+import { ApolloServer } from "@apollo/server"
+
+// Add all the type defs to your schema
+const server = new ApolloServer({
+    typeDefs: [GraphQL.typeDefs]
+});
+
+// Pick and Choose
+const { StringFieldFilter, IntFieldFilter, OperatorFieldConfigEnum } = GraphQL
 ```

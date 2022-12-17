@@ -1,4 +1,11 @@
-export const Stats = `
+const HistoricStats = `
+  type HistoricStats {
+    _id: HistoricStatsId 
+    total: Int 
+  }
+`;
+
+const HistoricStatsId = `
   type HistoricStatsId {
     YEAR: Int 
     DAY_OF_YEAR: Int 
@@ -10,12 +17,9 @@ export const Stats = `
     MINUTE: Int 
     SECOND: Int 
   }
+`;
 
-  type HistoricStats {
-    _id: HistoricStatsId 
-    total: Int 
-  }
-
+const Stats = `
   type Stats {
     remaining: Int 
     total: Int 
@@ -24,3 +28,5 @@ export const Stats = `
     history: [HistoricStats!] 
   }
 `;
+
+export { Stats, HistoricStatsId, HistoricStats };

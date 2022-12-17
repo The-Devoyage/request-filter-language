@@ -17,3 +17,5 @@ export const filterConfig = {
   history,
   pagination,
 };
+
+export { stats, historicStats, historicStatsId } from "./stats";

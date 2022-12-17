@@ -3,22 +3,34 @@ import { DateFieldFilter } from "./date-field-filter";
 import { IntFieldFilter } from "./int-field-filter";
 import { BooleanFieldFilter } from "./boolean-field-filter";
 
-const Common = `
-  enum OperatorFieldConfigEnum {
-    AND
-    OR
-  }
-
+const ArrayFilterByEnum = `
   enum ArrayFilterByEnum {
     IN
     NIN
   }
 `;
 
+const OperatorFieldConfigEnum = `
+  enum OperatorFieldConfigEnum {
+    AND
+    OR
+  }
+`;
+
 export const FieldFilters = [
-  Common,
+  ArrayFilterByEnum,
+  OperatorFieldConfigEnum,
   StringFieldFilter,
   IntFieldFilter,
   BooleanFieldFilter,
   DateFieldFilter,
 ];
+
+export {
+  ArrayFilterByEnum,
+  OperatorFieldConfigEnum,
+  StringFieldFilter,
+  IntFieldFilter,
+  BooleanFieldFilter,
+  DateFieldFilter,
+};

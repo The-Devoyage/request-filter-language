@@ -8,4 +8,6 @@ const Common = `
   }
 `;
 
-export const FilterConfig = [Common, Pagination, History];
+const FilterConfig = [Common, Pagination, History];
+
+export { FilterConfig, Pagination, History };

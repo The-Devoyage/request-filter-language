@@ -1,5 +1,27 @@
-import { FieldFilters } from "./field-filters";
-import { FilterConfig } from "./filter-config";
-import { Stats } from "./stats";
+import {
+  FieldFilters,
+  DateFieldFilter,
+  BooleanFieldFilter,
+  IntFieldFilter,
+  StringFieldFilter,
+  OperatorFieldConfigEnum,
+  ArrayFilterByEnum,
+} from "./field-filters";
+import { FilterConfig, History, Pagination } from "./filter-config";
+import { Stats, HistoricStats, HistoricStatsId } from "./stats";
 
-export const typeDefs = [...FieldFilters, ...FilterConfig, Stats];
+const typeDefs = [...FieldFilters, ...FilterConfig, Stats];
+
+export {
+  typeDefs,
+  DateFieldFilter,
+  BooleanFieldFilter,
+  IntFieldFilter,
+  StringFieldFilter,
+  OperatorFieldConfigEnum,
+  ArrayFilterByEnum,
+  History,
+  Pagination,
+  HistoricStatsId,
+  HistoricStats,
+};
