@@ -1,4 +1,4 @@
-import { FieldFilter, FieldFiltersSchema } from "../../field-filters";
+import { FieldFilter, FieldFiltersSchema } from "../../schemas";
 
 export const parseFieldFilter = (
   object: unknown,

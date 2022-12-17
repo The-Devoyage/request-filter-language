@@ -1,4 +1,4 @@
-import { DateFieldFilter } from "../../field-filters";
+import { DateFieldFilter } from "../../schemas";
 
 export const date = (dateFieldFilter: DateFieldFilter | Date) => {
   if (

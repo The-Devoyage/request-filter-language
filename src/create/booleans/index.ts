@@ -1,4 +1,4 @@
-import { BooleanFieldFilter } from "../../field-filters";
+import { BooleanFieldFilter } from "../../schemas";
 
 export const boolean = (booleanFieldFilter: BooleanFieldFilter | boolean) => {
   if (typeof booleanFieldFilter === "boolean")

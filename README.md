@@ -1,6 +1,6 @@
 # @the-devoyage/request-filter-language
 
-A validation and type library to structure the shape of network requests when dealing with filtering, searching, and pagination.
+A validation, creation, and type library to structure the shape of network requests when dealing with filtering, searching, and pagination.
 
 ## RESTFUL, Typescript, and GraphQL Support
 
@@ -8,7 +8,7 @@ A validation and type library to structure the shape of network requests when de
 - Zod Schemas for Validation
 - GraphQL Type Definitions and Scalars
 
-## What is RFL/Request Filter Language?
+## What is Request Filter Language?
 
 ### Standardized Requests
 
@@ -88,6 +88,20 @@ const fieldFilters = parseFieldFilters(myObject);
 
 ```
 
+### Create Field Filters
+
+Use the creator functions to easily create field filters.
+
+```
+import { fieldFilter } from "@the-devoyage/request-filter-language"
+
+const req.body = {
+    name: fieldFilter.string("nick"),
+    email: fieldFilter.string({string: "nick", filterBy: "REGEX"})
+    age: fieldFilter.int({int: 21, filterBy: "GT"})
+  }
+```
+
 ## Setup
 
 ### Install
@@ -114,9 +128,12 @@ const route = (req, res) => {
 
 ### Field Filters
 
-There are several field filters that can be used to shape the network request including:
-
 - String Field Filter
+
+```ts
+const stringFieldFilter = fieldFilter.string({});
+```
+
 - String Array Field Filter
 - Int Field Filter
 - Boolean Field Filter
@@ -133,7 +150,7 @@ import {
   DateFieldFilter 
 } from "@the-devoyage/request-filter-languages";
 
-const requestBody: StringFieldFilter = {...};
+const firstNameFilter: StringFieldFilter = {...};
 ```
 
 **Validations**
@@ -148,6 +165,7 @@ import {
 } from "@the-devoyage/request-filter-languages";
 
 const isValid = IntFieldFilterSchema.safeParse({...}).success;
+const fieldFilter = DateFieldFilterSchema.parse({...});
 ```
 
 Check out Zod for more information on how to use the schema validations.
