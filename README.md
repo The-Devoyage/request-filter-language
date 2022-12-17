@@ -1,6 +1,68 @@
 # @the-devoyage/request-filter-language
 
-A library to structure the shape of network requests when dealing with filtering, searching, and pagination.
+A library to help standardize the shape of network requests.
+
+Poorly Shaped Request:
+- It's hard to read.
+- It's hard to predict the results.
+- It's hard to remember how to write.
+- It's not scalable.
+
+```
+req.body = {
+  exact: true,
+  isListElement: true,
+  userFirstNameQuery: "Wednesd",
+  lastNameUserQuery: "adams"
+  userIsActive: true,
+  userType: "admin",
+  age: 16,
+  age_prop: "greater",
+  count: 20,
+  skipCount: 25,
+  limit: false,
+  includeFriends: ["Bongo", "Oakley"]
+  requireFriends: true
+}
+```
+
+A Standardized Request:
+- Predictable Shapes
+- Predictable Keys
+- Predictable Results 
+
+```
+req.body = {
+  first_name: {
+    string: "Wednesday",
+    filterBy: "REGEX,
+  },
+  last_name: "Adams",
+  active: {
+    bool: true,
+    operator: "AND"
+  },
+  type: {
+      string: "nonPilgram",
+      filterBy: "MATCH"
+  },
+  age: {
+      int: 16,
+      filterBy: "GT"
+  },
+  friends: {
+      strings: ["Bongo", "Oakley"],
+      operator: "OR"
+  },
+  config: {
+    pagination: {
+      limit: 15,
+      cursor: new Date(),
+      reverse: true
+    }
+  }
+}
+```
 
 ## RESTFUL, Typescript, and GraphQL Support
 
