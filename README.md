@@ -261,38 +261,33 @@ const isValid = IntFieldFilterSchema.safeParse({...}).success;
 const fieldFilter = DateFieldFilterSchema.parse({...});
 ```
 
-### Parse Filters
+### Parse Field Filters
 
-Parse Field Filters From Any Object.
+Parses an object for field filters. Returns an array of field filters with the object location.
 
 ```js
-import { parseFieldFilters } from '@the-devoyage/request-filter-language';
+import { parseFieldFilters, fieldFilter } from '@the-devoyage/request-filter-language';
 
 const myObject = {
-    name: stringFieldFilter,
-    age: intFieldFilter,
+    name: new fieldFilter.string("Oak"),
+    age: new fieldFilter.int(4),
     address: {
-        lineOne: stringFieldFilter
+        lineOne: new fieldFilter.string("101 Tree Lane") 
       }
-    friends: [stringFieldFilter, stringFieldFilter],
-    customProp: notAFieldFilter // <-- CUSTOM PROPERTIES
-    customPropz: [notAFieldFilter] // <-- CUSTOM PROPERTIES
+    customProp: {...} // <-- CUSTOM PROPERTIES
+    customProps: [{...}, {...}] // <-- CUSTOM PROPERTIES
   }
 
-const fieldFilters = parseFieldFilters(myObject);
+const fieldFilters: {fieldFilter: FieldFilter, location: string}[] = parseFieldFilters(myObject);
 
 /**
-* Returns an object only containing the field filters in the same shape.
-* It works with nested objects and/or arrays.
-*
-* {
-*   name: stringFieldFilter,
-*   age: intFieldFilter,
-*   friends: [stringFieldFilter, stringFieldFilter]
-*   address: {
-*       lineOne: stringFieldFilter
-*   }
-* }
+* Returns an array of field filters and thier location relative to the root of the object.
+* 
+* [
+*   { fieldFilter: { string: "Oak" }, location: "name" },
+*   { fieldFilter: { int: 4 }, location: "age" }, 
+*   { fieldFilter: { string: "101 Tree Lane" } location: "address.lineOne" }
+* ]
 **/
 ```
 
