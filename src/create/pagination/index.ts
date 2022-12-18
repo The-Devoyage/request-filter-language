@@ -1,4 +1,4 @@
-import { Pagination as IPagination } from "../../schemas";
+import { Pagination as IPagination, PaginationSchema } from "../../schemas";
 
 export class Pagination {
   pagination: IPagination | undefined;
@@ -30,5 +30,11 @@ export class Pagination {
       ...this.pagination,
       date_key: dateKey,
     };
+
+    return this;
+  }
+
+  run() {
+    return PaginationSchema.parse(this.pagination);
   }
 }

@@ -9,6 +9,8 @@ import { StringFieldFilter, StringArrayFieldFilter } from "./strings";
 import { IntFieldFilter } from "./ints";
 import { DateFieldFilter } from "./dates";
 import { BooleanFieldFilter } from "./booleans";
+import { History } from "./history";
+import { Pagination } from "./pagination";
 
 export class FieldFilter<K extends IFieldFilter, T extends FilterByOptions> {
   fieldFilter: K | undefined;
@@ -57,7 +59,9 @@ export const fieldFilter = {
   bool: BooleanFieldFilter,
 };
 
-const sff = new fieldFilter.string("nick")
-  .filterBy("MATCH")
-  .operator("OR")
-  .run();
+export const stats = {
+  history: History,
+  pagination: Pagination,
+};
+
+export { Stats } from "./stats";
