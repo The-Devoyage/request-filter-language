@@ -4,7 +4,7 @@ import {
   StringArrayFieldFilter as IStringArrayFieldFilter,
   ArrayFilterByOptions,
 } from "../../schemas";
-import { FieldFilter } from "../";
+import { FieldFilter } from "../field-filter";
 
 export class StringFieldFilter extends FieldFilter<
   IStringFieldFilter,

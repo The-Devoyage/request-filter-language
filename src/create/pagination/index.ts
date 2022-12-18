@@ -35,6 +35,9 @@ export class Pagination {
   }
 
   run() {
-    return PaginationSchema.parse(this.pagination);
+    const validated = PaginationSchema.safeParse(this.pagination);
+
+    if (validated.success) return validated.data;
+    else return validated;
   }
 }

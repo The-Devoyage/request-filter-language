@@ -2,7 +2,7 @@ import {
   IntFieldFilter as IIntFieldFilter,
   IntFilterByOptions,
 } from "../../schemas";
-import { FieldFilter } from "../";
+import { FieldFilter } from "../field-filter";
 
 export class IntFieldFilter extends FieldFilter<
   IIntFieldFilter,

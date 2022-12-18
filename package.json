@@ -1,7 +1,7 @@
 {
   "name": "@the-devoyage/request-filter-language",
-  "version": "0.0.1",
-  "description": "A type library with validators to structure filters within network requests.",
+  "version": "0.0.2",
+  "description": "A library to help standardize the shapes and options of network requests.",
   "main": "dist/index.js",
   "scripts": {
     "start": "tsc -w",

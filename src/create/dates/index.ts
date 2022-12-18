@@ -2,7 +2,7 @@ import {
   DateFieldFilter as IDateFieldFilter,
   DateFilterByOptions,
 } from "../../schemas";
-import { FieldFilter } from "../";
+import { FieldFilter } from "../field-filter";
 
 export class DateFieldFilter extends FieldFilter<
   IDateFieldFilter,

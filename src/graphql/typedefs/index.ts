@@ -10,7 +10,13 @@ import {
 import { FilterConfig, History, Pagination } from "./filter-config";
 import { Stats, HistoricStats, HistoricStatsId } from "./stats";
 
-const typeDefs = [...FieldFilters, ...FilterConfig, Stats];
+const typeDefs = [
+  ...FieldFilters,
+  ...FilterConfig,
+  Stats,
+  HistoricStats,
+  HistoricStatsId,
+];
 
 export {
   typeDefs,

@@ -30,6 +30,9 @@ export class History {
   }
 
   run() {
-    return HistoryFilterInputSchema.parse(this.history);
+    const validated = HistoryFilterInputSchema.safeParse(this.history);
+
+    if (validated.success) return validated.data;
+    else return validated;
   }
 }

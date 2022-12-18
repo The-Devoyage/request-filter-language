@@ -1,7 +1,7 @@
-import { HistoricStats, Stats as IStats, StatsSchema } from "src/schemas";
+import { HistoricStats, Stats, StatsSchema } from "../../schemas";
 
-export class Stats {
-  stats: IStats | null = null;
+export class StatsReturn {
+  stats: Stats | null = null;
 
   constructor() {
     this.stats = null;
@@ -53,6 +53,9 @@ export class Stats {
   }
 
   run() {
-    return StatsSchema.parse(this.stats);
+    const validated = StatsSchema.safeParse(this.stats);
+
+    if (validated.success) return validated.data;
+    else return validated;
   }
 }
