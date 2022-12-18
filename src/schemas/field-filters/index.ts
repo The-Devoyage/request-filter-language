@@ -9,7 +9,7 @@ import { StringFilterByOptionsSchema } from "./strings";
 import { StringFieldFilterSchema } from "./strings/string";
 import { StringArrayFieldFilterSchema } from "./strings/string-array";
 
-export const FieldFiltersSchema = z.union([
+export const FieldFilterSchema = z.union([
   StringFieldFilterSchema,
   StringArrayFieldFilterSchema,
   IntFieldFilterSchema,
@@ -24,10 +24,11 @@ export const FilterByOptionsSchema = z.union([
   DateFilterByOptionsSchema,
 ]);
 
-export type FieldFilter = z.infer<typeof FieldFiltersSchema>;
+export type FieldFilter = z.infer<typeof FieldFilterSchema>;
 export type FilterByOptions = z.infer<typeof FilterByOptionsSchema>;
 
 export * from "./booleans";
 export * from "./ints";
 export * from "./dates";
 export * from "./strings";
+export * from "./common";

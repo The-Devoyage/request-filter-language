@@ -1,6 +1,15 @@
-import { IntFieldFilter } from "../../schemas";
+import {
+  IntFieldFilter as IIntFieldFilter,
+  IntFilterByOptions,
+} from "../../schemas";
+import { FieldFilter } from "../";
 
-export const int = (intFieldFilter: IntFieldFilter | number) => {
-  if (typeof intFieldFilter === "number") return { int: intFieldFilter };
-  return intFieldFilter;
-};
+export class IntFieldFilter extends FieldFilter<
+  IIntFieldFilter,
+  IntFilterByOptions
+> {
+  constructor(int: number) {
+    super();
+    this.fieldFilter = { int };
+  }
+}

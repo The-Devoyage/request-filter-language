@@ -1,11 +1,15 @@
-import { DateFieldFilter } from "../../schemas";
+import {
+  DateFieldFilter as IDateFieldFilter,
+  DateFilterByOptions,
+} from "../../schemas";
+import { FieldFilter } from "../";
 
-export const date = (dateFieldFilter: DateFieldFilter | Date) => {
-  if (
-    typeof dateFieldFilter === "object" &&
-    Object.prototype.toString.call(dateFieldFilter) === "[object Date]"
-  ) {
-    return { date: dateFieldFilter };
+export class DateFieldFilter extends FieldFilter<
+  IDateFieldFilter,
+  DateFilterByOptions
+> {
+  constructor(date: Date) {
+    super();
+    this.fieldFilter = { date };
   }
-  return dateFieldFilter;
-};
+}

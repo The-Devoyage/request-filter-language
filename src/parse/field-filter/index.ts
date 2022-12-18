@@ -1,4 +1,4 @@
-import { FieldFilter, FieldFiltersSchema } from "../../schemas";
+import { FieldFilter, FieldFilterSchema } from "../../schemas";
 
 export const parseFieldFilter = (
   object: unknown,
@@ -10,7 +10,7 @@ export const parseFieldFilter = (
     }
   | undefined => {
   const deepFilterSearch = (object: unknown): FieldFilter | undefined => {
-    if (FieldFiltersSchema.safeParse(object).success) {
+    if (FieldFilterSchema.safeParse(object).success) {
       return object as FieldFilter;
     }
 

@@ -1,17 +1,34 @@
-import { StringArrayFieldFilter, StringFieldFilter } from "../../schemas";
+import {
+  StringFilterByOptions,
+  StringFieldFilter as IStringFieldFilter,
+  StringArrayFieldFilter as IStringArrayFieldFilter,
+  ArrayFilterByOptions,
+} from "../../schemas";
+import { FieldFilter } from "../";
 
-export const string = (stringFieldFilter: StringFieldFilter | string) => {
-  if (typeof stringFieldFilter === "string") {
-    return { string: stringFieldFilter };
+export class StringFieldFilter extends FieldFilter<
+  IStringFieldFilter,
+  StringFilterByOptions
+> {
+  constructor(string: string) {
+    super();
+    this.fieldFilter = { string };
   }
-  return stringFieldFilter;
-};
+}
 
-export const strings = (
-  stringArrayFieldFilter: StringArrayFieldFilter | string[]
-) => {
-  if (Array.isArray(stringArrayFieldFilter)) {
-    return { strings: stringArrayFieldFilter };
+export class StringArrayFieldFilter extends FieldFilter<
+  IStringArrayFieldFilter,
+  StringFilterByOptions
+> {
+  constructor(strings: string[]) {
+    super();
+    this.fieldFilter = { strings, arrayOptions: "IN" };
   }
-  return stringArrayFieldFilter;
-};
+
+  arrayOptions(arrayOptions: ArrayFilterByOptions) {
+    this.fieldFilter = {
+      ...this.fieldFilter,
+      arrayOptions,
+    } as IStringArrayFieldFilter;
+  }
+}

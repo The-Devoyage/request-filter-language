@@ -73,6 +73,14 @@ req.body = {
 - Zod Schemas for Validation
 - GraphQL Type Definitions and Scalars
 
+## Example Usage
+
+1. Sending a network request from the client to the API? Use this library to shape the request.
+2. Receive the standardized request from the Client on the API. Do with it as you want or use a few libraries to convert the standrized request to database filters!
+- `@the-devoyage/mongo-filter-generator` - Convert your network request straight to useable Mongoose filters.
+- `@the-devoyage/sequelize-query-generator` - Convert the network right directly to useable a Sequelize Query.
+- Create your own parser!
+
 ## Features
 
 ### Standardized Requests

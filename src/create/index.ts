@@ -1,21 +1,63 @@
-import { string } from "./strings";
-import { int } from "./ints";
-import { date } from "./dates";
-import { boolean } from "./booleans";
+import {
+  FieldFilter as IFieldFilter,
+  FilterByOptions,
+  GroupName,
+  OperatorOptions,
+  FieldFilterSchema,
+} from "../schemas";
+import { StringFieldFilter, StringArrayFieldFilter } from "./strings";
+import { IntFieldFilter } from "./ints";
+import { DateFieldFilter } from "./dates";
+import { BooleanFieldFilter } from "./booleans";
 
-import { history } from "./history";
-import { pagination } from "./pagination";
+export class FieldFilter<K extends IFieldFilter, T extends FilterByOptions> {
+  fieldFilter: K | undefined;
+
+  constructor() {
+    this.fieldFilter = undefined;
+  }
+
+  filterBy(filterByOption: T) {
+    this.fieldFilter = {
+      ...this.fieldFilter,
+      filterBy: filterByOption,
+    } as K;
+
+    return this;
+  }
+
+  groups(groups: GroupName[]) {
+    this.fieldFilter = {
+      ...this.fieldFilter,
+      groups,
+    } as K;
+
+    return this;
+  }
+
+  operator(operator: OperatorOptions) {
+    this.fieldFilter = {
+      ...this.fieldFilter,
+      operator,
+    } as K;
+
+    return this;
+  }
+
+  run() {
+    return FieldFilterSchema.parse(this.fieldFilter) as K;
+  }
+}
 
 export const fieldFilter = {
-  string,
-  int,
-  date,
-  boolean,
+  string: StringFieldFilter,
+  int: IntFieldFilter,
+  date: DateFieldFilter,
+  strings: StringArrayFieldFilter,
+  bool: BooleanFieldFilter,
 };
 
-export const filterConfig = {
-  history,
-  pagination,
-};
-
-export { stats, historicStats, historicStatsId } from "./stats";
+const sff = new fieldFilter.string("nick")
+  .filterBy("MATCH")
+  .operator("OR")
+  .run();

@@ -1,4 +1,4 @@
-import { FieldFilter, FieldFiltersSchema } from "../../schemas";
+import { FieldFilter, FieldFilterSchema } from "../../schemas";
 import { parseFieldFilter } from "../field-filter";
 
 export const parseFieldFilters = (
@@ -14,7 +14,7 @@ export const parseFieldFilters = (
   let fieldFilters: { fieldFilter: FieldFilter; location: string }[] = [];
 
   if (object) {
-    const safeParse = FieldFiltersSchema.safeParse(object);
+    const safeParse = FieldFilterSchema.safeParse(object);
     config?.verbose && console.log(safeParse);
 
     if (safeParse.success) {
