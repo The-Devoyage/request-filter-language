@@ -116,8 +116,6 @@ const IntFieldFilterSchema = IntFieldFilterSchema.parse(myIntFieldFilter);
 
 ## Setup
 
-### Install
-
 1. Login to the GitHub Registry with your GitHub account.
 
 ```
