@@ -1,6 +1,6 @@
 {
   "name": "@the-devoyage/request-filter-language",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A library to help standardize the shapes and options of network requests.",
   "main": "dist/index.js",
   "scripts": {
