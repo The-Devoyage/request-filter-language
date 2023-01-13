@@ -21,8 +21,10 @@ export const StatsSchema = z.object({
   remaining: z.optional(z.number()).nullable(),
   total: z.optional(z.number()).nullable(),
   page: z.optional(z.number()).nullable(),
-  cursor: z.optional(z.date()).nullable(),
+  cursor: z.optional(z.coerce.date()).nullable(),
   history: z.optional(z.array(HistoricStatsSchema)).nullable(),
+  per_page: z.optional(z.number()).nullable(),
+  prev_cursor: z.optional(z.coerce.date()).nullable(),
 });
 
 export type HistoricStatsId = z.infer<typeof HistoricStatsIdSchema>;

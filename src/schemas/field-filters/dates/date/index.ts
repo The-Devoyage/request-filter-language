@@ -6,7 +6,7 @@ import { z } from "zod";
 import { DateFilterByOptionsSchema } from "..";
 
 export const DateFieldFilterSchema = z.object({
-  date: z.date(),
+  date: z.coerce.date(),
   filterBy: z.optional(DateFilterByOptionsSchema),
   operator: z.optional(OperatorOptionsSchema),
   groups: z.optional(z.array(GroupNameSchema)),

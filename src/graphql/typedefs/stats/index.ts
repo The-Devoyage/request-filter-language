@@ -24,8 +24,10 @@ const Stats = `
     remaining: Int 
     total: Int 
     page: Int 
+    prev_cursor: DateTime
     cursor: DateTime 
     history: [HistoricStats!] 
+    per_page: Int
   }
 `;
 
