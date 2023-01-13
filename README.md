@@ -226,8 +226,8 @@ Specify options to control the amount and order of results.
 const pagination = {
   limit: 16,
   reverse: true,
-  dateCursor: new Date()
-  dateKey: "createdAt"
+  date_cursor: new Date()
+  date_key: "createdAt"
 }
 ```
 
