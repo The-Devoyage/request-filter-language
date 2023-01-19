@@ -1,5 +1,8 @@
 # Changelog
 
+## [v0.0.4]
+- Update pagination and historical typedefs to be optional.
+
 ## [v0.0.3]
 
 - Coerce dates from Date Field Filters.
