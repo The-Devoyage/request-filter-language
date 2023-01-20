@@ -10,6 +10,7 @@ import {
   IntFieldFilter,
   BooleanFieldFilter,
   DateFieldFilter,
+  Stats,
 } from "./typedefs";
 import { resolvers } from "./resolvers";
 import { typeDefs as scalars } from "graphql-scalars";
@@ -27,4 +28,5 @@ export const GraphQL = {
   HistoricStatsId,
   HistoricStats,
   Pagination,
+  Stats,
 };

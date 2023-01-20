@@ -30,4 +30,5 @@ export {
   Pagination,
   HistoricStatsId,
   HistoricStats,
+  Stats,
 };

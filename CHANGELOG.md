@@ -1,5 +1,9 @@
 # Changelog
 
+## [v0.0.5]
+- Mark Pagination types as Nullable for GraphQL Compatability.
+- Export GraphQL Stats Type Def.
+
 ## [v0.0.4]
 - Update pagination and historical typedefs to be optional.
 
